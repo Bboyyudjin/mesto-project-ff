@@ -1,42 +1,34 @@
-import {popupImage, newCardDefaults, defaultprofile} from "../scripts/index.js";
-
-export function openModal(item) {
-  item.classList.add("popup_is-opened");
-  closeModal(item);
-}
-
-export function openModalImage(card) {
-  popupImage.classList.add("popup_is-opened");
-  popupImage.querySelector('.popup__image').src = card.src;
-  popupImage.querySelector('.popup__caption').textContent = card.alt;
-  closeModal(popupImage);
-}
 // Закрытие попапов
-function closeModal(item){
-  item.querySelector('.popup__close').addEventListener('click',() => closeModalButton(item));
-  item.addEventListener('click',(evt) => closeModalOverflow(item, evt));
-  document.addEventListener('keydown',(evt) => closeModalEsc(item, evt));
-}
-  
-function closeModalButton(item) {
-  item.classList.remove("popup_is-opened");
-  defaultprofile();
-  newCardDefaults();
+function addCloseListeners(popup){
+  popup.querySelector('.popup__close').addEventListener('click',() => closePopupByButton(popup));
+  popup.addEventListener('click',(evt) => closePopupByOverflow(popup, evt));
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
-function closeModalOverflow(item, evt) {
-  if (evt.target === item) {
-    item.classList.remove("popup_is-opened");
-    defaultprofile();
-    newCardDefaults()
+document.querySelectorAll('.popup').forEach(popup => addCloseListeners(popup));
+
+function closePopupByButton(popup) {
+  closePopup(popup);
+}
+
+function closePopupByOverflow(popup, evt) {
+  if (evt.target === popup) {
+    closePopup(popup);
   }
 };
 
-function closeModalEsc(item, evt) {
+function closePopupByEsc(evt) {
   if (evt.key === 'Escape') {
-    item.classList.remove("popup_is-opened");
-    document.removeEventListener('keydown',(evt) => closeModalEsc(item, evt));
-    defaultprofile();
-    newCardDefaults();
+    const popup = document.querySelector(".popup_is-opened")
+    closePopup(popup);
   }
 };
+
+export function openPopup(popup) {
+  popup.classList.add("popup_is-opened");
+};
+
+export function closePopup(popup) {
+  popup.classList.remove("popup_is-opened");
+  document.removeEventListener('keydown', closePopupByEsc);
+}
