@@ -2,10 +2,9 @@
 function addCloseListeners(popup){
   popup.querySelector('.popup__close').addEventListener('click',() => closePopupByButton(popup));
   popup.addEventListener('click',(evt) => closePopupByOverflow(popup, evt));
-  document.addEventListener('keydown', closePopupByEsc);
 }
 
-document.querySelectorAll('.popup').forEach(popup => addCloseListeners(popup));
+document.querySelectorAll('.popup').forEach(popup => addCloseListeners(popup))
 
 function closePopupByButton(popup) {
   closePopup(popup);
@@ -26,6 +25,7 @@ function closePopupByEsc(evt) {
 
 export function openPopup(popup) {
   popup.classList.add("popup_is-opened");
+  document.addEventListener('keydown', closePopupByEsc);
 };
 
 export function closePopup(popup) {
