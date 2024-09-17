@@ -1,5 +1,5 @@
 import {createCard, deleteCard, like} from "../components/card.js";
-import {openPopup, closePopup} from "../components/modal.js";
+import {openPopup, closePopup, addCloseListeners} from "../components/modal.js";
 import {initialCards} from "../components/cards.js";
 import '../pages/index.css';
 
@@ -15,9 +15,9 @@ initialCards.forEach(card => {
 });
 
 // Открытие попапов
-document.querySelector('.profile__edit-button').addEventListener('click',() => openPopup(popupTypeEdit));
-document.querySelector('.profile__add-button').addEventListener('click',() => openPopup(popupNewCard));
- 
+document.querySelector('.profile__edit-button').addEventListener('click',() => {openPopup(popupTypeEdit); makeDefaultProfile()});
+document.querySelector('.profile__add-button').addEventListener('click',() => {openPopup(popupNewCard); makeNewCardDefaults()});
+document.querySelectorAll('.popup').forEach(popup => addCloseListeners(popup)); 
 
 // Редактирование профиля
 const formEditProfile = document.querySelector(".popup__form[name='edit-profile']");
@@ -52,8 +52,7 @@ const urlInput = popupNewCard.querySelector(".popup__input_type_url");
 function makeNewCardDefaults(){
   cardNameInput.value = '';
   urlInput.value = '';
-}
-
+};
 
 function addNewCard(evt) {
   evt.preventDefault();

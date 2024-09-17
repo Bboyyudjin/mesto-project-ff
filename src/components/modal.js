@@ -1,10 +1,8 @@
 // Закрытие попапов
-function addCloseListeners(popup){
+export function addCloseListeners(popup){
   popup.querySelector('.popup__close').addEventListener('click',() => closePopupByButton(popup));
   popup.addEventListener('click',(evt) => closePopupByOverflow(popup, evt));
 }
-
-document.querySelectorAll('.popup').forEach(popup => addCloseListeners(popup))
 
 function closePopupByButton(popup) {
   closePopup(popup);
