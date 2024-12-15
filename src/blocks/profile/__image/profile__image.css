@@ -1,5 +1,5 @@
 .profile__image {
-  background-image: url('../../../images/avatar.jpg');
+  position: relative;
   width: 120px;
   height: 120px;
   -webkit-border-radius: 50%;
@@ -8,6 +8,39 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+
+.edit-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile__image:hover {
+  &::before {
+    opacity: 1;
+  }
+  .edit-icon {
+    opacity: 1;
+  }
+  cursor: pointer;
 }
 
 @media screen and (max-width: 740px) {

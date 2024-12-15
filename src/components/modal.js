@@ -30,3 +30,12 @@ export function closePopup(popup) {
   popup.classList.remove("popup_is-opened");
   document.removeEventListener('keydown', closePopupByEsc);
 }
+
+export function loading(popup, isLoading) {
+const button = popup.querySelector(".popup__button");
+if (isLoading) {
+  button.textContent = 'Сохранение...'
+} else {
+  button.textContent = 'Сохранить'
+}
+}

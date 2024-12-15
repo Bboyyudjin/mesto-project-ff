@@ -11,7 +11,7 @@
   border-radius: 2px;
   border: none;
   transition: visibility 0s, background 0.3s;
-  margin-top: 48px;
+  margin-top: 24px;
 }
 
 .popup__button:hover {
@@ -23,5 +23,17 @@
   .popup__button {
     font-size: 14px;
     line-height: 17px;
+  }
+}
+
+.popup__button_disabled {
+  opacity: 0.2;
+  background: transparent;
+  border: 1px solid black;
+  color: #000;
+
+  &:hover {
+    background: none;
+    cursor: default;
   }
 }
