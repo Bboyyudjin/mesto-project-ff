@@ -6,22 +6,25 @@ const config = {
   }
 }
 
-export const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-  .then(checkFetch);
-}
-
-export const getUserInfo = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers
-  })
+function request(url, options) {
+  return fetch(url, options)
   .then(checkFetch)
 }
 
+export const getInitialCards = () => {
+  return request(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  })
+}
+
+export const getUserInfo = () => {
+  return request(`${config.baseUrl}/users/me`, {
+    headers: config.headers
+  })
+}
+
 export const updateUserInfo = (name, about) => {
-  return fetch(`${config.baseUrl}/users/me`, {
+  return request(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -29,11 +32,10 @@ export const updateUserInfo = (name, about) => {
       about: `${about}`
     })
   })
-  .then(checkFetch)
 }
 
 export const addCard = (newCard) => {
-  return fetch(`${config.baseUrl}/cards`, {
+  return request(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
@@ -41,35 +43,31 @@ export const addCard = (newCard) => {
       link: `${newCard.link}`
     })
   })
-  .then (checkFetch)
 }
 
 export const deleteCard = (card) => {
-  return fetch(`${config.baseUrl}/cards/${card._id}`, {
+  return request(`${config.baseUrl}/cards/${card._id}`, {
     method: 'DELETE',
     headers: config.headers
   })
-  .then(checkFetch)
 }
 
 export const addLike = (card, userId) => { 
   const method = card.likes.some(user => user._id === userId) ? 'DELETE' : 'PUT';
-  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, { 
+  return request(`${config.baseUrl}/cards/likes/${card._id}`, { 
       method: method, 
       headers: config.headers 
   })
-  .then(checkFetch)
 }
 
 export const updateAvatar = (url) => {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
+  return request(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
       avatar: url
     })
   })
-  .then(checkFetch)
 }
 
 const checkFetch = (res) => { 

@@ -1,11 +1,7 @@
 // Закрытие попапов
 export function addCloseListeners(popup){
-  popup.querySelector('.popup__close').addEventListener('click',() => closePopupByButton(popup));
+  popup.querySelector('.popup__close').addEventListener('click',() => closePopup(popup));
   popup.addEventListener('click',(evt) => closePopupByOverflow(popup, evt));
-}
-
-function closePopupByButton(popup) {
-  closePopup(popup);
 }
 
 function closePopupByOverflow(popup, evt) {
@@ -29,13 +25,4 @@ export function openPopup(popup) {
 export function closePopup(popup) {
   popup.classList.remove("popup_is-opened");
   document.removeEventListener('keydown', closePopupByEsc);
-}
-
-export function loading(popup, isLoading) {
-const button = popup.querySelector(".popup__button");
-if (isLoading) {
-  button.textContent = 'Сохранение...'
-} else {
-  button.textContent = 'Сохранить'
-}
 }
